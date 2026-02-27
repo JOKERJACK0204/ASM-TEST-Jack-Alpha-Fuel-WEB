@@ -1,4 +1,4 @@
-package com.example.asm1;
+package com.example.asm1.controller;
 
 import com.example.asm1.entity.User;
 import com.example.asm1.service.AuthService;
