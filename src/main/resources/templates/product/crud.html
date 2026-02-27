@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layout(~{::body})">
+
+<body>
+
+<h2 class="text-center mb-4">Product Management</h2>
+
+<div class="px-3 px-md-4">
+
+    <!-- FORM -->
+    <form th:action="@{/products/create}"
+          method="post"
+          th:object="${product}"
+          enctype="multipart/form-data"
+          class="shadow p-3 rounded mb-4">
+
+        <input type="hidden" th:field="*{id}">
+
+        <div class="row g-3">
+
+            <!-- TÊN -->
+            <div class="col-md-3">
+                <input class="form-control"
+                       th:field="*{name}"
+                       placeholder="Product Name"
+                       required>
+            </div>
+
+            <!-- GIÁ -->
+            <div class="col-md-2">
+                <input class="form-control"
+                       th:field="*{price}"
+                       placeholder="Price"
+                       required>
+            </div>
+
+            <!-- LINK ẢNH -->
+            <div class="col-md-3">
+                <input class="form-control"
+                       th:field="*{image}"
+                       placeholder="Image URL (optional)">
+            </div>
+
+            <!-- FILE ẢNH -->
+            <div class="col-md-2">
+                <input type="file"
+                       name="imageFile"
+                       class="form-control">
+            </div>
+
+            <!-- NÚT LƯU -->
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">
+                    Save
+                </button>
+            </div>
+
+            <!-- MÔ TẢ SẢN PHẨM -->
+            <div class="col-md-12">
+                <textarea class="form-control"
+                          th:field="*{description}"
+                          rows="3"
+                          placeholder="Product Description"></textarea>
+            </div>
+
+        </div>
+    </form>
+
+    <!-- TABLE -->
+    <table class="table table-bordered text-center shadow-sm">
+        <thead class="table-light">
+        <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="p, stat : ${products}">
+            <td th:text="${stat.count}"></td>
+            <td th:text="${p.name}"></td>
+            <td th:text="${p.price}"></td>
+
+            <!-- MÔ TẢ -->
+            <td th:text="${p.description}"
+                style="max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+            </td>
+
+            <!-- ẢNH -->
+            <td>
+                <img th:src="${p.image}"
+                     style="width:60px;height:60px;object-fit:cover">
+            </td>
+
+            <!-- ACTION -->
+            <td>
+                <a th:href="@{/products/edit/{id}(id=${p.id})}"
+                   class="btn btn-warning btn-sm">
+                    Edit
+                </a>
+
+                <a th:href="@{/products/delete/{id}(id=${p.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Xoá sản phẩm?')">
+                    Remove
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layout(~{::body})">
+
+<body>
+
+<h2 class="mb-4 text-center">Payment</h2>
+
+<div class="px-3 px-md-4">
+    <form class="w-75 mx-auto shadow p-4 rounded">
+
+        <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Phone Number</label>
+            <input class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Address</label>
+            <textarea class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Total</label>
+            <input class="form-control" value="199.000đ" disabled>
+        </div>
+
+        <button class="btn btn-primary w-100">
+            Confirm Order
+        </button>
+
+    </form>
+</div>
+</body>
+</html>

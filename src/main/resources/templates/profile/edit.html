@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layout(~{::body})">
+
+<body>
+
+<h3>Edit Profile</h3>
+
+<form method="post" th:action="@{/profile/edit}">
+    <div class="mb-3">
+        <label>Full Name</label>
+        <input type="text" class="form-control"
+               name="fullname"
+               th:value="${user.fullname}">
+    </div>
+
+    <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control"
+               name="email"
+               th:value="${user.email}">
+    </div>
+
+    <button class="btn btn-success">Save</button>
+</form>
+
+</body>
+</html>

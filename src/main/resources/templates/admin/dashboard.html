@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layout(~{::body})">
+
+<body>
+
+<h2 class="mb-4 text-center">Dashboard</h2>
+
+<div class="px-3 px-md-4">
+
+    <!-- THỐNG KÊ -->
+    <div class="row g-4 mb-4">
+
+        <div class="col-md-4">
+            <div class="card text-center shadow h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">	Total Orders</h6>
+                    <p class="fs-4 fw-semibold mb-0">120</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Sales</h6>
+                    <p class="fs-4 fw-semibold mb-0">
+                        35.000.000đ
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow h-100">
+                <div class="card-body">
+                    <h6 class="text-muted">Customers</h6>
+                    <p class="fs-4 fw-semibold mb-0">50</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ĐƠN HÀNG GẦN ĐÂY -->
+    <h5 class="mb-3">Recent Orders</h5>
+
+    <table class="table table-bordered text-center align-middle shadow-sm">
+        <thead class="table-light">
+        <tr>
+            <th>Order ID</th>
+            <th>Customer</th>
+            <th>Total</th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>DH001</td>
+            <td>Nguyễn Văn A</td>
+            <td>599.000đ</td>
+            <td>Completed </td>
+        </tr>
+        <tr>
+            <td>DH002</td>
+            <td>Trần Thị B</td>
+            <td>299.000đ</td>
+            <td>In Process</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
