@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
-public class LoginTest {
+public class LoginTest2 {
 
     WebDriver driver;
     String baseUrl = "http://localhost:8080";
@@ -17,201 +17,142 @@ public class LoginTest {
         driver.manage().window().maximize();
     }
 
+    // 🔥 Quan trọng: Mỗi test luôn quay về trang login
     @BeforeMethod
-    public void goToLoginPage() throws InterruptedException {
+    public void goToLoginPage() {
         driver.get(baseUrl + "/auth/login");
-        Thread.sleep(500);
-    }
-
-    // 🔥 Hàm delay 0.5 giây
-    public void waitHalfSecond() throws InterruptedException {
-        Thread.sleep(500);
     }
 
     // ===== LOGIN_01 – ADMIN SUCCESS =====
     @Test
-    public void LOGIN_01_AdminSuccess() throws InterruptedException {
+    public void LOGIN_01_AdminSuccess() {
 
         driver.findElement(By.name("email")).sendKeys("admin@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/products/crud"));
     }
 
     // ===== LOGIN_02 – USER SUCCESS =====
     @Test
-    public void LOGIN_02_UserSuccess() throws InterruptedException {
+    public void LOGIN_02_UserSuccess() {
 
         driver.findElement(By.name("email")).sendKeys("user@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains(baseUrl));
     }
 
     // ===== LOGIN_03 – EMAIL NOT FOUND =====
     @Test
-    public void LOGIN_03_EmailNotFound() throws InterruptedException {
+    public void LOGIN_03_EmailNotFound() {
 
         driver.findElement(By.name("email")).sendKeys("abc@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_04 – WRONG PASSWORD =====
     @Test
-    public void LOGIN_04_WrongPassword() throws InterruptedException {
+    public void LOGIN_04_WrongPassword() {
 
         driver.findElement(By.name("email")).sendKeys("admin@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("999");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_05 – BOTH EMPTY =====
     @Test
-    public void LOGIN_05_BothEmpty() throws InterruptedException {
+    public void LOGIN_05_BothEmpty() {
 
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_06 – EMAIL EMPTY =====
     @Test
-    public void LOGIN_06_EmailEmpty() throws InterruptedException {
+    public void LOGIN_06_EmailEmpty() {
 
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_07 – PASSWORD EMPTY =====
     @Test
-    public void LOGIN_07_PasswordEmpty() throws InterruptedException {
+    public void LOGIN_07_PasswordEmpty() {
 
         driver.findElement(By.name("email")).sendKeys("admin@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_08 – EMAIL UPPERCASE =====
     @Test
-    public void LOGIN_08_EmailUppercase() throws InterruptedException {
+    public void LOGIN_08_EmailUppercase() {
 
         driver.findElement(By.name("email")).sendKeys("ADMIN@GMAIL.COM");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_09 – PASSWORD SPACE =====
     @Test
-    public void LOGIN_09_PasswordSpace() throws InterruptedException {
+    public void LOGIN_09_PasswordSpace() {
 
         driver.findElement(By.name("email")).sendKeys("admin@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123 ");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_10 – SQL INJECTION =====
     @Test
-    public void LOGIN_10_SQLInjection() throws InterruptedException {
+    public void LOGIN_10_SQLInjection() {
 
         driver.findElement(By.name("email")).sendKeys("' OR '1'='1");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_11 – REFRESH AFTER LOGIN =====
     @Test
-    public void LOGIN_11_RefreshAfterLogin() throws InterruptedException {
+    public void LOGIN_11_RefreshAfterLogin() {
 
         driver.findElement(By.name("email")).sendKeys("user@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         driver.navigate().refresh();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains(baseUrl));
     }
 
     // ===== LOGIN_12 – MULTIPLE LOGIN =====
     @Test
-    public void LOGIN_12_MultipleLogin() throws InterruptedException {
+    public void LOGIN_12_MultipleLogin() {
 
         for (int i = 0; i < 2; i++) {
 
             driver.findElement(By.name("email")).sendKeys("user@gmail.com");
-            waitHalfSecond();
-
             driver.findElement(By.name("password")).sendKeys("123");
-            waitHalfSecond();
-
             driver.findElement(By.cssSelector("button[type='submit']")).click();
-            waitHalfSecond();
 
             driver.get(baseUrl + "/auth/login");
-            waitHalfSecond();
         }
 
         Assert.assertTrue(true);
@@ -219,33 +160,23 @@ public class LoginTest {
 
     // ===== LOGIN_13 – LONG INPUT =====
     @Test
-    public void LOGIN_13_LongInput() throws InterruptedException {
+    public void LOGIN_13_LongInput() {
 
         driver.findElement(By.name("email"))
                 .sendKeys("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa@gmail.com");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("123");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
 
     // ===== LOGIN_14 – SPECIAL CHARACTER =====
     @Test
-    public void LOGIN_14_SpecialCharacter() throws InterruptedException {
+    public void LOGIN_14_SpecialCharacter() {
 
         driver.findElement(By.name("email")).sendKeys("@@@@");
-        waitHalfSecond();
-
         driver.findElement(By.name("password")).sendKeys("@@@@");
-        waitHalfSecond();
-
         driver.findElement(By.cssSelector("button[type='submit']")).click();
-        waitHalfSecond();
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/auth/login"));
     }
@@ -253,6 +184,7 @@ public class LoginTest {
     // ===== LOGIN_15 – PAGE LOAD =====
     @Test
     public void LOGIN_15_PageLoad() {
+
         Assert.assertNotNull(driver.getTitle());
     }
 
