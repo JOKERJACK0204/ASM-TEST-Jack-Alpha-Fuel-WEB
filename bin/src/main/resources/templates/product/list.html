@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layout(~{::body})">
+<body>
+
+<style>
+    .product-card {
+        width: 310px;
+        height: 370px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        transition: transform .3s;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-card:hover {
+        transform: translateY(-6px);
+    }
+
+    .product-img {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .product-img img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        transition: transform .4s;
+    }
+
+    .product-card:hover img {
+        transform: scale(1.1);
+    }
+
+    .badge-new {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: #379683;
+        color: white;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 12px;
+    }
+
+    .product-body {
+        flex: 1;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    /* CỤM GIÁ + NÚT CỐ ĐỊNH */
+    .product-footer {
+        margin-top: auto;
+    }
+
+    .product-price {
+        font-weight: 600;
+        color: #198754;
+        margin-bottom: 8px;
+    }
+
+    .product-actions {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+    }
+</style>
+
+<br>
+<h2 class="text-center mb-4 fw-bold">Product</h2>
+
+<div class="row g-4">
+    <div class="col-lg-3 col-md-4 col-sm-6"
+         th:each="p : ${products}">
+
+        <div class="product-card">
+
+            <div class="product-img">
+                <span class="badge-new"></span>
+                <img th:src="${p.image}">
+            </div>
+
+            <div class="product-body">
+                <!-- Tên sản phẩm -->
+                <h6 class="fw-bold mb-2" th:text="${p.name}"></h6>
+
+                <!-- GIÁ + NÚT (CỐ ĐỊNH DƯỚI) -->
+                <div class="product-footer">
+                    <p class="product-price"
+                       th:text="${#numbers.formatDecimal(p.price,0,'COMMA',0,'POINT')} + 'đ'">
+                    </p>
+
+                    <div class="product-actions">
+                        <a th:href="@{/products/detail/{id}(id=${p.id})}"
+                           class="btn btn-outline-primary btn-sm">
+                            View
+                        </a>
+
+                        <form th:action="@{/cart/add}" method="post">
+                            <input type="hidden" name="productId" th:value="${p.id}">
+                            <input type="hidden" name="quantity" value="1">
+                            <button type="submit" class="btn btn-success">
+                                Add to Cart
+                            </button>
+                        </form>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

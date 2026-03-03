@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="shared/layout :: layout(~{::body})">
+
+<body>
+
+<!-- CSS cố định kích thước ảnh -->
+<style>
+    .product-detail-img {
+        width: 100%;
+        max-width: 420px;
+        height: 420px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+</style>
+
+<div class="container py-4">
+
+    <div class="row g-4 align-items-center">
+
+        <!-- ẢNH SẢN PHẨM -->
+        <div class="col-md-5 d-flex justify-content-center">
+            <img th:src="${product.image}"
+                 th:alt="${product.name}"
+                 class="product-detail-img shadow">
+        </div>
+
+        <!-- THÔNG TIN -->
+        <div class="col-md-7">
+            <h3 th:text="${product.name}" class="mb-3"></h3>
+
+            <h4 class="text-danger fw-bold mb-3"
+                th:text="${#numbers.formatDecimal(product.price,0,'COMMA',0,'POINT')} + ' đ'">
+            </h4>
+
+            <p class="mb-4"
+               th:text="${product.description}">
+            </p>
+
+            <!-- ACTION -->
+            <div class="d-flex gap-3">
+
+                <a href="/products" class="btn btn-outline-secondary">
+                    Back
+                </a>
+
+                <!-- THÊM VÀO GIỎ -->
+                <form th:action="@{/cart/add}" method="post">
+                    <input type="hidden" name="productId" th:value="${product.id}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn btn-success">
+                        Add to Cart
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>
